@@ -10,32 +10,9 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class LevelEditorScene extends Scene{
-    private String vertexShaderSrc =
-            "#version 330 core\n" +
-            "layout(location=0) in vec3 aPos;\n" +
-            "layout(location=1) in vec4 aColor;\n" +
-            "\n" +
-            "out vec4 fColor;\n" +
-            "\n" +
-            "void main() {\n" +
-            "    fColor = aColor;\n" +
-            "    gl_Position = vec4(aPos, 1.0);\n" +
-            "}";
+    private int shaderProgram;
 
-    private String fragmentShaderSrc =
-            "#version 330 core\n" +
-            "\n" +
-            "in vec4 fColor;\n" +
-            "\n" +
-            "out vec4 color;\n" +
-            "\n" +
-            "void main() {\n" +
-            "    color = fColor;\n" +
-            "}";
-
-    private int vertexID, fragmentID, shaderProgram;
-
-    private float[] vertexArray = {
+    private final float[] vertexArray = {
             // position                    // color
              0.5f,  -0.5f,  0.0f,          1.0f, 0.0f, 0.0f, 1.0f,     // Bottom right  0
             -0.5f,   0.5f,  0.0f,          0.0f, 1.0f, 0.0f, 1.0f,     // Top left      1
@@ -44,7 +21,7 @@ public class LevelEditorScene extends Scene{
     };
 
     // IMPORTANT: Must be in counter-clockwise order
-    private int[] elementArray = {
+    private final int[] elementArray = {
             /*
                     X           X
                     X           X
@@ -53,7 +30,7 @@ public class LevelEditorScene extends Scene{
             0, 1, 3     // Bottom left triangle
     };
 
-    private int vaoID, vboID, eboID;
+    private int vaoID;
 
     public LevelEditorScene() {
 
@@ -66,8 +43,18 @@ public class LevelEditorScene extends Scene{
         // ===============================
 
         // First load and compile the vertex shader
-        vertexID = glCreateShader(GL_VERTEX_SHADER);
+        int vertexID = glCreateShader(GL_VERTEX_SHADER);
         // Pass the shader source to the GPU
+        String vertexShaderSrc = "#version 330 core\n" +
+                "layout(location=0) in vec3 aPos;\n" +
+                "layout(location=1) in vec4 aColor;\n" +
+                "\n" +
+                "out vec4 fColor;\n" +
+                "\n" +
+                "void main() {\n" +
+                "    fColor = aColor;\n" +
+                "    gl_Position = vec4(aPos, 1.0);\n" +
+                "}";
         glShaderSource(vertexID, vertexShaderSrc);
         glCompileShader(vertexID);
 
@@ -81,8 +68,17 @@ public class LevelEditorScene extends Scene{
         }
 
         // First load and compile the vertex shader
-        fragmentID = glCreateShader(GL_FRAGMENT_SHADER);
+        int fragmentID = glCreateShader(GL_FRAGMENT_SHADER);
         // Pass the shader source to the GPU
+        String fragmentShaderSrc = "#version 330 core\n" +
+                "\n" +
+                "in vec4 fColor;\n" +
+                "\n" +
+                "out vec4 color;\n" +
+                "\n" +
+                "void main() {\n" +
+                "    color = fColor;\n" +
+                "}";
         glShaderSource(fragmentID, fragmentShaderSrc);
         glCompileShader(fragmentID);
 
@@ -121,7 +117,7 @@ public class LevelEditorScene extends Scene{
         vertexBuffer.put(vertexArray).flip();
 
         // Create VBO upload the vertex buffer
-        vboID = glGenBuffers();
+        int vboID = glGenBuffers();
         glBindBuffer(GL_ARRAY_BUFFER, vboID);
         glBufferData(GL_ARRAY_BUFFER, vertexBuffer, GL_STATIC_DRAW);
 
@@ -129,7 +125,7 @@ public class LevelEditorScene extends Scene{
         IntBuffer elementBuffer = BufferUtils.createIntBuffer(elementArray.length);
         elementBuffer.put(elementArray).flip();
 
-        eboID = glGenBuffers();
+        int eboID = glGenBuffers();
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementBuffer, GL_STATIC_DRAW);
 
