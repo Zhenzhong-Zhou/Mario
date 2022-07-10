@@ -3,6 +3,7 @@ package jade;
 import components.SpriteRenderer;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
+import utilities.AssetPool;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -34,6 +35,11 @@ public class LevelEditorScene extends Scene{
                 this.addGameObjectToScene(gameObject);
             }
         }
+        loadResources();
+    }
+
+    private void loadResources() {
+        AssetPool.getShader("assets/shaders/default.glsl");
     }
 
     @Override
@@ -45,7 +51,7 @@ public class LevelEditorScene extends Scene{
         } else if(KeyListener.isKeyPressed(GLFW_KEY_DOWN)) {
             camera.position.y -= 100.0f * dt;
         }
-        System.out.println("FPS: " + (1.0f / dt));
+//        System.out.println("FPS: " + (1.0f / dt));
         for(GameObject gameObject : gameObjects) {
             gameObject.update(dt);
         }
