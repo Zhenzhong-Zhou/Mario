@@ -4,8 +4,8 @@ import components.FontRender;
 import components.SpriteRender;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
-import render.Shader;
-import render.Texture;
+import renderer.Shader;
+import renderer.Texture;
 import utilities.Time;
 
 import java.nio.FloatBuffer;
