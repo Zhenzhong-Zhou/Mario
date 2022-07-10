@@ -19,8 +19,8 @@ public class LevelEditorScene extends Scene{
         int xOffset = 10;
         int yOffset = 10;
 
-        float totalWidth = (float)(600 - xOffset * 2);
-        float totalHeight = (float)(300 - yOffset * 2);
+        float totalWidth = (float) (600 - xOffset * 2);
+        float totalHeight = (float) (300 - yOffset * 2);
         float sizeX = totalWidth / 100.0f;
         float sizeY = totalHeight / 100.0f;
         float padding = 0;
@@ -51,8 +51,6 @@ public class LevelEditorScene extends Scene{
         } else if(KeyListener.isKeyPressed(GLFW_KEY_DOWN)) {
             camera.position.y -= 100.0f * dt;
         }
-
-        System.out.println("FPS: " + (1.0f / dt));
 
         for(GameObject gameObject : gameObjects) {
             gameObject.update(dt);
