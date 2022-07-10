@@ -4,12 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameObject {
-    private String name;
+    private final String name;
     private final List<Component> components;
+    public Transform transform;
 
     public GameObject(String name) {
         this.name = name;
         components = new ArrayList<>();
+        transform = new Transform();
+    }
+
+    public GameObject(String name, Transform transform) {
+        this.name = name;
+        components = new ArrayList<>();
+        this.transform = transform;
     }
 
     public <T extends Component> T getComponent(Class<T> componentClass) {
