@@ -33,7 +33,6 @@ void main() {
     if(fTextureId > 0) {
         int id = int(fTextureId);
         color = fColor * texture(uTextures[id], fTextureCoords);
-//        color = vec4(fTextureCoords, 0, 1);
     } else {
         color = fColor;
     }

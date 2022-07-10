@@ -85,6 +85,57 @@ public class RenderBatch {
         glEnableVertexAttribArray(3);
     }
 
+    public void addSprite(SpriteRenderer spriteRenderer) {
+        // Get index and add renderObject
+        int index = this.numberSprites;
+        this.sprites[index] = spriteRenderer;
+        this.numberSprites++;
+
+        if(spriteRenderer.getTexture() != null) {
+            if(!textures.contains(spriteRenderer.getTexture())) {
+                textures.add(spriteRenderer.getTexture());
+            }
+        }
+
+        // Add properties to local vertices array
+        loadVertexProperties(index);
+
+        if(numberSprites >= this.maxBatchSize) {
+            this.hasRoom = false;
+        }
+    }
+
+    public void render() {
+        // For now, we will re-buffer all data every time
+        glBindBuffer(GL_ARRAY_BUFFER, vboID);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
+
+        // Use shader
+        shader.use();
+        shader.uploadMat4f("uProjection", Window.getCurrentScene().camera().getProjectionMatrix());
+        shader.uploadMat4f("uView", Window.getCurrentScene().camera().getViewMatrix());
+        for(int i = 0; i < textures.size(); i++) {
+            glActiveTexture(GL_TEXTURE0 + i + 1);
+            textures.get(i).bind();
+        }
+        shader.uploadIntArray("uTextures", textureSlots);
+
+        glBindVertexArray(vaoID);
+        glEnableVertexAttribArray(0);
+        glEnableVertexAttribArray(1);
+
+        glDrawElements(GL_TRIANGLES, numberSprites * 6, GL_UNSIGNED_INT, 0);
+
+        glDisableVertexAttribArray(0);
+        glDisableVertexAttribArray(1);
+        glBindVertexArray(0);
+
+        for(Texture texture : textures) {
+            texture.unbind();
+        }
+        shader.detach();
+    }
+
     private void loadVertexProperties(int index) {
         SpriteRenderer spriteRenderer = this.sprites[index];
 
@@ -144,57 +195,6 @@ public class RenderBatch {
             loadElementIndices(elements, i);
         }
         return elements;
-    }
-
-    public void addSprite(SpriteRenderer spriteRenderer) {
-        // Get index and add renderObject
-        int index = this.numberSprites;
-        this.sprites[index] = spriteRenderer;
-        this.numberSprites++;
-
-        if(spriteRenderer.getTexture() != null) {
-            if(!textures.contains(spriteRenderer.getTexture())) {
-                textures.add(spriteRenderer.getTexture());
-            }
-        }
-
-        // Add properties to local vertices array
-        loadVertexProperties(index);
-
-        if(numberSprites >= this.maxBatchSize) {
-            this.hasRoom = false;
-        }
-    }
-
-    public void render() {
-        // For now, we will re-buffer all data every time
-        glBindBuffer(GL_ARRAY_BUFFER, vboID);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
-
-        // Use shader
-        shader.use();
-        shader.uploadMat4f("uProjection", Window.getCurrentScene().camera().getProjectionMatrix());
-        shader.uploadMat4f("uView", Window.getCurrentScene().camera().getViewMatrix());
-        for(int i = 0; i < textures.size(); i++) {
-            glActiveTexture(GL_TEXTURE0 + i + 1);
-            textures.get(i).bind();
-        }
-        shader.uploadIntArray("uTextures", textureSlots);
-
-        glBindVertexArray(vaoID);
-        glEnableVertexAttribArray(0);
-        glEnableVertexAttribArray(1);
-
-        glDrawElements(GL_TRIANGLES, numberSprites * 6, GL_UNSIGNED_INT, 0);
-
-        glDisableVertexAttribArray(0);
-        glDisableVertexAttribArray(1);
-        glBindVertexArray(0);
-
-        for(Texture texture : textures) {
-            texture.unbind();
-        }
-        shader.detach();
     }
 
     private void loadElementIndices(int[] elements, int index) {

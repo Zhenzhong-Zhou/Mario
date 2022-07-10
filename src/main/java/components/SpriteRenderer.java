@@ -8,7 +8,7 @@ import renderer.Texture;
 public class SpriteRenderer extends Component {
     private final Vector4f color;
     private Vector2f[] textureCoords;
-    private Texture texture;
+    private final Texture texture;
 
     public SpriteRenderer(Vector4f color) {
         this.color = color;

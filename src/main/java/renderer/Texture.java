@@ -9,12 +9,9 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.stb.STBImage.*;
 
 public class Texture {
-    private String filepath;
-    private int textureID;
+    private final int textureID;
 
     public Texture(String filepath) {
-        this.filepath = filepath;
-
         // Generate texture on GPU
         textureID = glGenTextures();
         glBindTexture(GL_TEXTURE_2D, textureID);
@@ -45,7 +42,6 @@ public class Texture {
         } else {
             assert false : "Error: (Texture) Could not load image '" + filepath + "'.";
         }
-
         stbi_image_free(image);
     }
 
