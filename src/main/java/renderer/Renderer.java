@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Renderer {
-    private final int MAX_BATCH_SIZE = 1000;
     private final List<RenderBatch> batches;
 
     public Renderer() {
@@ -32,6 +31,7 @@ public class Renderer {
         }
 
         if(!added) {
+            int MAX_BATCH_SIZE = 1000;
             RenderBatch newBatch = new RenderBatch(MAX_BATCH_SIZE);
             newBatch.start();
             batches.add(newBatch);

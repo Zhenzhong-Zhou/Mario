@@ -10,26 +10,16 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class RenderBatch {
-    // Vertex
-    // =======
-    // Position                 Color
-    // float, float             float, float, float, float
-    private final int POSITION_SIZE = 2;
-    private final int COLOR_SIZE = 4;
-
-    private final int POSITION_OFFSET = 0;
-    private final int COLOR_OFFSET = POSITION_OFFSET + POSITION_SIZE * Float.BYTES;
     private final int VERTEX_SIZE = 6;
-    private final int VERTEX_SIZE_BYTES = VERTEX_SIZE * Float.BYTES;
 
-    private SpriteRenderer[] sprites;
+    private final SpriteRenderer[] sprites;
     private int numberSprites;
     private boolean hasRoom;
-    private float[] vertices;
+    private final float[] vertices;
 
     private int vaoID, vboID;
-    private int maxBatchSize;
-    private Shader shader;
+    private final int maxBatchSize;
+    private final Shader shader;
 
     public RenderBatch(int maxBatchSize) {
         shader = new Shader("assets/shaders/default.glsl");
@@ -61,8 +51,17 @@ public class RenderBatch {
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices, GL_STATIC_DRAW);
 
         // Enable the buffer attribute pointers
+        int VERTEX_SIZE_BYTES = VERTEX_SIZE * Float.BYTES;
+        int POSITION_OFFSET = 0;
+        // Vertex
+        // =======
+        // Position                 Color
+        // float, float             float, float, float, float
+        int POSITION_SIZE = 2;
         glVertexAttribPointer(0, POSITION_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, POSITION_OFFSET);
         glEnableVertexAttribArray(0);
+        int COLOR_SIZE = 4;
+        int COLOR_OFFSET = POSITION_OFFSET + POSITION_SIZE * Float.BYTES;
         glVertexAttribPointer(1, COLOR_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, COLOR_OFFSET);
         glEnableVertexAttribArray(1);
     }
