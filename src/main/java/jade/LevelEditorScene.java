@@ -43,11 +43,10 @@ public class LevelEditorScene extends Scene{
 
     @Override
     public void init() {
-//        camera = new Camera(new Vector2f());
         camera = new Camera(new Vector2f(-200, -300));
         defaultShader = new Shader("assets/shaders/default.glsl");
         defaultShader.compile();
-        testTexture = new Texture("assets/images/testImage.jpg");
+        testTexture = new Texture("assets/images/testImage.png");
 
         // ============================================================
         // Generate VAO, VBO, and EBO buffer objects, and send to GPU
@@ -89,7 +88,6 @@ public class LevelEditorScene extends Scene{
 
     @Override
     public void update(float dt) {
-//        camera.position.x -= dt * 50.0f;
         defaultShader.use();
 
         // Upload texture to shader
