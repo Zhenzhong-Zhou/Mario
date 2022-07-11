@@ -15,29 +15,15 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class RenderBatch {
-    // Vertex
-    // =======
-    // Position                 Color                               Texture Coords          Texture ID
-    // float, float             float, float, float, float          float, float            float
-    private final int POSITION_SIZE = 2;
-    private final int COLOR_SIZE = 4;
-    private final int TEXTURE_COORDS_SIZE = 2;
-    private final int TEXTURE_ID_SIZE = 1;
-
-    private final int POSITION_OFFSET = 0;
-    private final int COLOR_OFFSET = POSITION_OFFSET + POSITION_SIZE * Float.BYTES;
-    private final int TEXTURE_COORDS_OFFSET = COLOR_OFFSET + COLOR_SIZE * Float.BYTES;
-    private final int TEXTURE_ID_OFFSET = TEXTURE_COORDS_OFFSET + TEXTURE_COORDS_SIZE * Float.BYTES;
     private final int VERTEX_SIZE = 9;
-    private final int VERTEX_SIZE_BYTES = VERTEX_SIZE * Float.BYTES;
 
     private final SpriteRenderer[] sprites;
     private int numberSprites;
     private boolean hasRoom;
     private final float[] vertices;
-    private int[] textureSlots = {0, 1, 2, 3, 4, 5, 6, 7};
+    private final int[] textureSlots = {0, 1, 2, 3, 4, 5, 6, 7};
 
-    private List<Texture> textures;
+    private final List<Texture> textures;
     private int vaoID, vboID;
     private final int maxBatchSize;
     private final Shader shader;
@@ -71,16 +57,30 @@ public class RenderBatch {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices, GL_STATIC_DRAW);
 
+        // Vertex
+        // =======
+        // Position                 Color                               Texture Coords          Texture ID
+        // float, float             float, float, float, float          float, float            float
+        int POSITION_SIZE = 2;
+        int POSITION_OFFSET = 0;
+        int VERTEX_SIZE_BYTES = VERTEX_SIZE * Float.BYTES;
+
         // Enable the buffer attribute pointers
         glVertexAttribPointer(0, POSITION_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, POSITION_OFFSET);
         glEnableVertexAttribArray(0);
 
+        int COLOR_OFFSET = POSITION_OFFSET + POSITION_SIZE * Float.BYTES;
+        int COLOR_SIZE = 4;
         glVertexAttribPointer(1, COLOR_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, COLOR_OFFSET);
         glEnableVertexAttribArray(1);
 
+        int TEXTURE_COORDS_OFFSET = COLOR_OFFSET + COLOR_SIZE * Float.BYTES;
+        int TEXTURE_COORDS_SIZE = 2;
         glVertexAttribPointer(2, TEXTURE_COORDS_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, TEXTURE_COORDS_OFFSET);
         glEnableVertexAttribArray(2);
 
+        int TEXTURE_ID_SIZE = 1;
+        int TEXTURE_ID_OFFSET = TEXTURE_COORDS_OFFSET + TEXTURE_COORDS_SIZE * Float.BYTES;
         glVertexAttribPointer(3, TEXTURE_ID_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, TEXTURE_ID_OFFSET);
         glEnableVertexAttribArray(3);
     }
