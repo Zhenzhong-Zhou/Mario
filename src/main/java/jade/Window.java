@@ -25,9 +25,10 @@ public class Window {
         width = 1920;
         height = 1080;
         title = "Mario";
-        r = 1;
-        g = 1;
-        b = 1;
+        // Change Background Color
+        r = 0.7f;
+        g = 0.2f;
+        b = 0.1f;
         a = 1;
     }
 

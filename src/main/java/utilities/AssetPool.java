@@ -45,7 +45,8 @@ public class AssetPool {
 
     public static SpriteSheet getSpriteSheet(String resourceName) {
         File file = new File(resourceName);
-        assert AssetPool.spriteSheetHashMap.containsKey(file.getAbsolutePath()) : "Error: Tried to access sprite sheet '" + resourceName + "' and it has not been added to asset pool.";
+        assert AssetPool.spriteSheetHashMap.containsKey(file.getAbsolutePath())
+                : "Error: Tried to access sprite sheet '" + resourceName + "' and it has not been added to asset pool.";
         return AssetPool.spriteSheetHashMap.getOrDefault(file.getAbsolutePath(), null);
     }
 }
