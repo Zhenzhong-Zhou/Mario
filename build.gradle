@@ -22,7 +22,7 @@ test {
 project.ext.lwjglVersion = "3.3.1"
 project.ext.jomlVersion = "1.10.4"
 project.ext.lwjglNatives = "natives-macos"
-project.ext.imguiVersion = "1.86.4"
+project.ext.imguiVersion = "1.76-0.9"
 
 dependencies {
     // ImGUI stuff
@@ -35,13 +35,13 @@ dependencies {
         implementation "org.lwjgl:lwjgl$it::natives-macos"
     }
 
-    implementation "io.github.spair:imgui-java-binding:1.86.4"
-    implementation "io.github.spair:imgui-java-lwjgl3:1.86.4"
+    implementation "io.github.spair:imgui-java-binding:$imguiVersion"
+    implementation "io.github.spair:imgui-java-lwjgl3:$imguiVersion"
 
     // Include all available natives
-    implementation "io.github.spair:imgui-java-natives-windows:1.86.4"
-    implementation "io.github.spair:imgui-java-natives-linux:1.86.4"
-    implementation "io.github.spair:imgui-java-natives-macos:1.86.4"
+    implementation "io.github.spair:imgui-java-natives-windows:$imguiVersion"
+    implementation "io.github.spair:imgui-java-natives-linux:$imguiVersion"
+    implementation "io.github.spair:imgui-java-natives-macos:$imguiVersion"
 
     // LWJGL stuff
     implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
