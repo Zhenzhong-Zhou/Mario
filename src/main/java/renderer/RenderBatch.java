@@ -14,7 +14,7 @@ import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
-public class RenderBatch {
+public class RenderBatch implements Comparable<RenderBatch> {
     private final int VERTEX_SIZE = 9;
 
     private final SpriteRenderer[] sprites;
@@ -27,10 +27,12 @@ public class RenderBatch {
     private int vaoID, vboID;
     private final int maxBatchSize;
     private final Shader shader;
+    private int zIndex;
 
-    public RenderBatch(int maxBatchSize) {
+    public RenderBatch(int maxBatchSize, int zIndex) {
+        this.zIndex = zIndex;
         shader = AssetPool.getShader("assets/shaders/default.glsl");
-        sprites = new SpriteRenderer[maxBatchSize];
+        this.sprites = new SpriteRenderer[maxBatchSize];
         this.maxBatchSize = maxBatchSize;
 
         // 4 vertices quads
@@ -233,5 +235,14 @@ public class RenderBatch {
 
     public boolean hasTexture(Texture texture) {
         return this.textures.contains(texture);
+    }
+
+    public int zIndex() {
+        return this.zIndex;
+    }
+
+    @Override
+    public int compareTo(RenderBatch o) {
+        return Integer.compare(this.zIndex, o.zIndex());
     }
 }

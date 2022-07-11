@@ -26,9 +26,9 @@ public class Window {
         height = 1080;
         title = "Mario";
         // Change Background Color
-        r = 0.7f;
-        g = 0.2f;
-        b = 0.1f;
+        r = 1;
+        g = 1;
+        b = 1;
         a = 1;
     }
 
@@ -121,6 +121,9 @@ public class Window {
         // creates the GLCapabilities instance and makes the OpenGL
         // bindings available for use.
         GL.createCapabilities();
+
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
         Window.changeScene(0);
     }
