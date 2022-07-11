@@ -38,12 +38,11 @@ public class SpriteRenderer extends Component {
     }
 
     public Vector2f[] getTextureCoords() {
-            Vector2f[] textureCoords = {
-                    new Vector2f(1, 1),
-                    new Vector2f(1 , 0),
-                    new Vector2f(0 , 0),
-                    new Vector2f(0 , 1),
-            };
-            return textureCoords;
+        return new Vector2f[] {
+                new Vector2f(1, 1),
+                new Vector2f(1 , 0),
+                new Vector2f(0 , 0),
+                new Vector2f(0 , 1),
+        };
     }
 }
