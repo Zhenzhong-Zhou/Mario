@@ -13,7 +13,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
     private int width, height;
-    private final String title;
+    private String title;
     private long glfwWindow;
     private ImGuiLayer imGuiLayer;
 
@@ -24,10 +24,9 @@ public class Window {
     private static Scene currentScene;
 
     private Window() {
-        width = 1920;
-        height = 1080;
-        title = "Mario";
-        // Change Background Color
+        this.width = 1920;
+        this.height = 1080;
+        this.title = "Mario";
         r = 1;
         g = 1;
         b = 1;
@@ -47,7 +46,7 @@ public class Window {
                 currentScene.start();
                 break;
             default:
-                assert false: "Unknown scene '" + newScene + "'";
+                assert false : "Unknown scene '" + newScene + "'";
                 break;
         }
     }
@@ -84,8 +83,8 @@ public class Window {
         GLFWErrorCallback.createPrint(System.err).set();
 
         // Initialize GLFW
-        if(! glfwInit()) {
-            throw new IllegalStateException("Unable to initialize GLFW");
+        if(!glfwInit()) {
+            throw new IllegalStateException("Unable to initialize GLFW.");
         }
 
         // Configure GLFW
@@ -98,7 +97,7 @@ public class Window {
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
         // Create the window
-        glfwWindow = glfwCreateWindow(width, height, title, NULL, NULL);
+        glfwWindow = glfwCreateWindow(this.width, this.height, this.title, NULL, NULL);
         if(glfwWindow == NULL) {
             throw new IllegalStateException("Failed to create the GLFW window.");
         }
@@ -141,13 +140,11 @@ public class Window {
         float endTime;
         float dt = -1.0f;
 
-        while(! glfwWindowShouldClose(glfwWindow)) {
+        while(!glfwWindowShouldClose(glfwWindow)) {
             // Poll events
             glfwPollEvents();
 
-            // Set the clear color
-            glClearColor(r, g, b,a);
-            // Clear the framebuffer
+            glClearColor(r, g, b, a);
             glClear(GL_COLOR_BUFFER_BIT);
 
             if(dt >= 0) {
