@@ -7,8 +7,6 @@ import org.joml.Vector2f;
 import utilities.AssetPool;
 
 public class LevelEditorScene extends Scene{
-    private GameObject gameObject;
-
     public LevelEditorScene() {
 
     }
@@ -18,13 +16,13 @@ public class LevelEditorScene extends Scene{
         loadResources();
         this.camera = new Camera(new Vector2f(-250, 0));
 
-        SpriteSheet spriteSheet = AssetPool.getSpriteSheet("assets/images/spritesheet.png");
+        SpriteSheet spriteSheet = AssetPool.getSpriteSheet("assets/images/spriteSheet.png");
 
-        gameObject = new GameObject("Object 1", new Transform(new Vector2f(200, 100), new Vector2f(256, 256)), 2);
+        GameObject gameObject = new GameObject("Object 1", new Transform(new Vector2f(200, 100), new Vector2f(256, 256)), 2);
         gameObject.addComponent(new SpriteRenderer(new Sprite(AssetPool.getTexture("assets/images/blendRed.png"))));
         this.addGameObjectToScene(gameObject);
 
-        GameObject object1 = new GameObject("Object 2", new Transform(new Vector2f(400, 100), new Vector2f(256, 256)), 1);
+        GameObject object1 = new GameObject("Object 2", new Transform(new Vector2f(400, 100), new Vector2f(256, 256)), 3);
         object1.addComponent(new SpriteRenderer(new Sprite(AssetPool.getTexture("assets/images/blendGreen.png"))));
         this.addGameObjectToScene(object1);
     }
@@ -32,8 +30,8 @@ public class LevelEditorScene extends Scene{
     private void loadResources() {
         AssetPool.getShader("assets/shaders/default.glsl");
 
-        AssetPool.addSpriteSheet("assets/images/spritesheet.png",
-                new SpriteSheet(AssetPool.getTexture("assets/images/spritesheet.png"),
+        AssetPool.addSpriteSheet("assets/images/spriteSheet.png",
+                new SpriteSheet(AssetPool.getTexture("assets/images/spriteSheet.png"),
                         16, 16, 26, 0));
     }
 

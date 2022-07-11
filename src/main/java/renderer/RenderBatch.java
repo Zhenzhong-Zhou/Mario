@@ -27,7 +27,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
     private int vaoID, vboID;
     private final int maxBatchSize;
     private final Shader shader;
-    private int zIndex;
+    private final int zIndex;
 
     public RenderBatch(int maxBatchSize, int zIndex) {
         this.zIndex = zIndex;
