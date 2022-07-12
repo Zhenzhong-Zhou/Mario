@@ -13,7 +13,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
     private int width, height;
-    private String title;
+    private final String title;
     private long glfwWindow;
     private ImGuiLayer imGuiLayer;
 

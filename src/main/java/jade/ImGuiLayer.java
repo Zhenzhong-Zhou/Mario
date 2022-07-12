@@ -14,7 +14,7 @@ import java.util.Objects;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class ImGuiLayer {
-    private long glfwWindow;
+    private final long glfwWindow;
 
     // Mouse cursors provided by GLFW
     private final long[] mouseCursors = new long[ImGuiMouseCursor.COUNT];
