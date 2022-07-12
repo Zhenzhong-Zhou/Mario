@@ -137,7 +137,7 @@ public class ImGuiLayer {
             @Override
             public String get() {
                 final String clipboardString = glfwGetClipboardString(glfwWindow);
-                return Objects.requireNonNullElse(clipboardString, "");
+                return clipboardString == null ? "" : clipboardString;
             }
         });
 
@@ -169,37 +169,16 @@ public class ImGuiLayer {
     }
 
     public void update(float dt, Scene currentScene) {
-        startFrame(dt);
-
         // Any Dear ImGui code SHOULD go between ImGui.newFrame()/ImGui.render() methods
-        ImGui.newFrame();
         imGuiGlfw.newFrame();
+        ImGui.newFrame();
         currentScene.sceneImgui();
         ImGui.showDemoWindow();
         ImGui.render();
+        ImGui.endFrame();
+        imGuiGl3.renderDrawData(ImGui.getDrawData());
 
         endFrame();
-    }
-
-    private void startFrame(final float deltaTime) {
-        // Get window properties and mouse position
-        float[] winWidth = {Window.getWidth()};
-        float[] winHeight = {Window.getHeight()};
-        double[] mousePosX = {0};
-        double[] mousePosY = {0};
-        glfwGetCursorPos(glfwWindow, mousePosX, mousePosY);
-
-        // We SHOULD call those methods to update Dear ImGui state for the current frame
-        final ImGuiIO io = ImGui.getIO();
-        io.setDisplaySize(winWidth[0], winHeight[0]);
-        io.setDisplayFramebufferScale(1f, 1f);
-        io.setMousePos((float) mousePosX[0], (float) mousePosY[0]);
-        io.setDeltaTime(deltaTime);
-
-        // Update the mouse cursor
-        final int imguiCursor = ImGui.getMouseCursor();
-        glfwSetCursor(glfwWindow, mouseCursors[imguiCursor]);
-        glfwSetInputMode(glfwWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
 
     private void endFrame() {
@@ -212,9 +191,6 @@ public class ImGuiLayer {
             ImGui.renderPlatformWindowsDefault();
             GLFW.glfwMakeContextCurrent(backupWindowPtr);
         }
-
-//        GLFW.glfwSwapBuffers(glfwWindow);
-        GLFW.glfwPollEvents();
     }
 
     // If you want to clean a room after yourself - do it by yourself
