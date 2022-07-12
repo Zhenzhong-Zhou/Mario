@@ -212,6 +212,9 @@ public class ImGuiLayer {
             ImGui.renderPlatformWindowsDefault();
             GLFW.glfwMakeContextCurrent(backupWindowPtr);
         }
+
+//        GLFW.glfwSwapBuffers(glfwWindow);
+        GLFW.glfwPollEvents();
     }
 
     // If you want to clean a room after yourself - do it by yourself
