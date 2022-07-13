@@ -8,10 +8,7 @@ import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
 import org.lwjgl.glfw.GLFW;
 
-import java.util.Objects;
-
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class ImGuiLayer {
     private final long glfwWindow;
