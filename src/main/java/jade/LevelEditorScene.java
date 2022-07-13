@@ -68,7 +68,7 @@ public class LevelEditorScene extends Scene{
         ImVec2 windowPos = new ImVec2();
         ImGui.getWindowPos(windowPos);
         ImVec2 windowSize = new ImVec2();
-        ImGui.getWindowSize();
+        ImGui.getWindowSize(windowSize);
         ImVec2 itemSpacing = new ImVec2();
         ImGui.getStyle().getItemSpacing(itemSpacing);
 
