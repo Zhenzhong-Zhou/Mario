@@ -4,7 +4,7 @@ import com.google.gson.*;
 
 import java.lang.reflect.Type;
 
-public class ComponentDeserializer implements JsonSerializer<Component>, JsonDeserializer<Component> {
+public class ComponentDeserializer implements JsonDeserializer<Component> {
     @Override
     public Component deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
@@ -16,13 +16,5 @@ public class ComponentDeserializer implements JsonSerializer<Component>, JsonDes
         } catch(ClassNotFoundException classNotFoundException) {
             throw new JsonParseException("Unknown element type: " + type, classNotFoundException);
         }
-    }
-
-    @Override
-    public JsonElement serialize(Component src, Type typeOfSrc, JsonSerializationContext context) {
-        JsonObject result = new JsonObject();
-        result.add("type", new JsonPrimitive(src.getClass().getCanonicalName()));
-        result.add("properties", context.serialize(src, src.getClass()));
-        return result;
     }
 }

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import components.Component;
 import components.ComponentDeserializer;
+import components.ComponentSerializer;
 import imgui.ImGui;
 import renderer.Renderer;
 
@@ -62,6 +63,7 @@ public abstract class Scene {
 
     public void saveExit() {
         Gson gson = new GsonBuilder().setPrettyPrinting()
+                .registerTypeAdapter(Component.class, new ComponentSerializer())
                 .registerTypeAdapter(Component.class, new ComponentDeserializer())
                 .registerTypeAdapter(GameObject.class, new GameObjectDeserializer())
                 .create();
@@ -77,6 +79,7 @@ public abstract class Scene {
 
     public void load() {
         Gson gson = new GsonBuilder().setPrettyPrinting()
+                .registerTypeAdapter(Component.class, new ComponentSerializer())
                 .registerTypeAdapter(Component.class, new ComponentDeserializer())
                 .registerTypeAdapter(GameObject.class, new GameObjectDeserializer())
                 .create();
