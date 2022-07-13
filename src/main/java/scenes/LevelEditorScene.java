@@ -1,4 +1,4 @@
-package jade;
+package scenes;
 
 import components.RigidBody;
 import components.Sprite;
@@ -6,11 +6,15 @@ import components.SpriteRenderer;
 import components.SpriteSheet;
 import imgui.ImGui;
 import imgui.ImVec2;
+import jade.Camera;
+import jade.GameObject;
+import jade.Transform;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
+import scenes.Scene;
 import utilities.AssetPool;
 
-public class LevelEditorScene extends Scene{
+public class LevelEditorScene extends Scene {
     SpriteSheet spriteSheet;
     SpriteRenderer objSprite;
     public LevelEditorScene() {
