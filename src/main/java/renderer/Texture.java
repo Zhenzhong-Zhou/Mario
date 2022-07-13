@@ -13,10 +13,6 @@ public class Texture {
     private int textureID;
     private int width, height;
 
-//    public Texture(String filepath) {
-//
-//    }
-
     public void init(String filepath) {
         this.filepath = filepath;
 
@@ -69,5 +65,9 @@ public class Texture {
 
     public int getHeight() {
         return this.height;
+    }
+
+    public int getId() {
+        return textureID;
     }
 }
