@@ -1,6 +1,7 @@
-package jade;
+package components;
 
 import imgui.ImGui;
+import jade.GameObject;
 import org.joml.Vector3f;
 import org.joml.Vector4d;
 import org.joml.Vector4f;
