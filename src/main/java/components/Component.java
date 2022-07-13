@@ -3,13 +3,16 @@ package components;
 import imgui.ImGui;
 import jade.GameObject;
 import org.joml.Vector3f;
-import org.joml.Vector4d;
 import org.joml.Vector4f;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.List;
 
 public abstract class Component {
+    private static int ID_COUNTER = 0;
+    private int uid = -1;
+
     public transient GameObject gameObject = null;
     public void start() {
 
@@ -72,5 +75,19 @@ public abstract class Component {
         } catch(IllegalAccessException illegalAccessException) {
             illegalAccessException.printStackTrace();
         }
+    }
+
+    public void generateId() {
+        if(this.uid == -1) {
+            this.uid = ID_COUNTER++;
+        }
+    }
+
+    public int getUid() {
+        return this.uid;
+    }
+
+    public static void init(int maxId) {
+        ID_COUNTER = maxId;
     }
 }
