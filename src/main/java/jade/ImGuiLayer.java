@@ -6,6 +6,7 @@ import imgui.callback.ImStrSupplier;
 import imgui.flag.*;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
+import imgui.type.ImBoolean;
 import org.lwjgl.glfw.GLFW;
 import scenes.Scene;
 
@@ -37,6 +38,7 @@ public class ImGuiLayer {
 
         io.setIniFilename("imgui.ini");
         io.setConfigFlags(ImGuiConfigFlags.NavEnableKeyboard); // Navigation with keyboard
+        io.setConfigFlags(ImGuiConfigFlags.DockingEnable);
         io.setBackendFlags(ImGuiBackendFlags.HasMouseCursors); // Mouse cursors to display while resizing windows etc.
         io.setBackendPlatformName("imgui_java_impl_glfw");
         io.addConfigFlags(ImGuiConfigFlags.ViewportsEnable);
@@ -178,8 +180,10 @@ public class ImGuiLayer {
         // Any Dear ImGui code SHOULD go between ImGui.newFrame()/ImGui.render() methods
         imGuiGlfw.newFrame();
         ImGui.newFrame();
+        setupDockSpace();
         currentScene.sceneImgui();
         ImGui.showDemoWindow();
+        ImGui.end();
         ImGui.render();
         ImGui.endFrame();
         imGuiGl3.renderDrawData(ImGui.getDrawData());
@@ -203,5 +207,22 @@ public class ImGuiLayer {
     private void destroyImGui() {
         imGuiGl3.dispose();
         ImGui.destroyContext();
+    }
+
+    private void setupDockSpace() {
+        int windowFlags = ImGuiWindowFlags.MenuBar | ImGuiWindowFlags.NoDocking;
+
+        ImGui.setNextWindowPos(0.0f, 0.0f, ImGuiCond.Always);
+        ImGui.setNextWindowSize(Window.getWidth(), Window.getHeight());
+        ImGui.pushStyleVar(ImGuiStyleVar.WindowRounding, 0.0f);
+        ImGui.pushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0f);
+        windowFlags |= ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoResize |
+                ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoBringToFrontOnFocus | ImGuiWindowFlags.NoNavFocus;
+
+        ImGui.begin("DockSpace Demo", new ImBoolean(true), windowFlags);
+        ImGui.popStyleVar(2);
+
+        // DockSpace
+        ImGui.dockSpace(ImGui.getID("DockSpace"));
     }
 }
