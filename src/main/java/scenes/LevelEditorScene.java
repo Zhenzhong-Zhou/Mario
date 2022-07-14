@@ -9,7 +9,6 @@ import utilities.AssetPool;
 
 public class LevelEditorScene extends Scene {
     SpriteSheet spriteSheet;
-    SpriteRenderer objSprite;
 
     GameObject levelEditorStuff = new GameObject("LevelEditor", new Transform(new Vector2f()), 0);
 
