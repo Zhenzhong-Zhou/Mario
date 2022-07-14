@@ -38,6 +38,15 @@ public class LevelEditorScene extends Scene {
                 new SpriteSheet(AssetPool.getTexture("assets/images/spriteSheets/decorationsAndBlocks.png"),
                         16, 16, 81, 0));
         AssetPool.getTexture("assets/images/blendGreen.png");
+
+        for(GameObject gameObject : gameObjects) {
+            if(gameObject.getComponent(SpriteRenderer.class) != null) {
+                SpriteRenderer spriteRenderer = gameObject.getComponent(SpriteRenderer.class);
+                if(spriteRenderer.getTexture() != null) {
+                    spriteRenderer.setTexture(AssetPool.getTexture(spriteRenderer.getTexture().getFilepath()));
+                }
+            }
+        }
     }
 
     @Override
