@@ -59,9 +59,18 @@ public class LevelEditorScene extends Scene {
         AssetPool.getTexture("assets/images/blendGreen.png");
     }
 
+    float x = 100.0f;
+    float y = 100.0f;
+    float angle = 0.0f;
     @Override
     public void update(float dt) {
         levelEditorStuff.update(dt);
+        // Testing
+        DebugDraw.addBox2D(new Vector2f(600, 200), new Vector2f(128, 64), angle, new Vector3f(0, 1, 0), 100);
+        angle += 100.0f * dt;
+        DebugDraw.addCircle(new Vector2f(x, y), 64, new Vector3f(1, 0, 0), 100);
+        x += 50f * dt;
+        y += 50f * dt;
         for(GameObject gameObject : gameObjects) {
             gameObject.update(dt);
         }
