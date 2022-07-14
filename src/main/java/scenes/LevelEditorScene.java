@@ -5,9 +5,6 @@ import imgui.ImGui;
 import imgui.ImVec2;
 import jade.*;
 import org.joml.Vector2f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
-import renderer.DebugDraw;
 import utilities.AssetPool;
 
 public class LevelEditorScene extends Scene {
@@ -30,24 +27,7 @@ public class LevelEditorScene extends Scene {
         spriteSheet = AssetPool.getSpriteSheet("assets/images/spriteSheets/decorationsAndBlocks.png");
         if(levelLoaded) {
             this.activeGameObject = gameObjects.get(0);
-            return;
         }
-
-//        GameObject gameObject = new GameObject("Object 1", new Transform(new Vector2f(200, 100), new Vector2f(256, 256)), 2);
-//        objSprite = new SpriteRenderer();
-//        gameObject.addComponent(objSprite);
-//        objSprite.setColor(new Vector4f(1, 0, 0, 1));
-//        gameObject.addComponent(new RigidBody());
-//        this.addGameObjectToScene(gameObject);
-//        this.activeGameObject = gameObject;
-//
-//        GameObject object1 = new GameObject("Object 2", new Transform(new Vector2f(400, 100), new Vector2f(256, 256)), 3);
-//        SpriteRenderer obj1SpriteRenderer = new SpriteRenderer();
-//        Sprite obj1Sprite = new Sprite();
-//        obj1Sprite.setTexture(AssetPool.getTexture("assets/images/blendGreen.png"));
-//        obj1SpriteRenderer.setSprite(obj1Sprite);
-//        object1.addComponent(obj1SpriteRenderer);
-//        this.addGameObjectToScene(object1);
     }
 
     private void loadResources() {
@@ -59,18 +39,9 @@ public class LevelEditorScene extends Scene {
         AssetPool.getTexture("assets/images/blendGreen.png");
     }
 
-    float x = 100.0f;
-    float y = 100.0f;
-    float angle = 0.0f;
     @Override
     public void update(float dt) {
         levelEditorStuff.update(dt);
-        // Testing
-        DebugDraw.addBox2D(new Vector2f(600, 200), new Vector2f(128, 64), angle, new Vector3f(0, 1, 0), 100);
-        angle += 100.0f * dt;
-        DebugDraw.addCircle(new Vector2f(x, y), 64, new Vector3f(1, 0, 0), 100);
-        x += 50f * dt;
-        y += 50f * dt;
         for(GameObject gameObject : gameObjects) {
             gameObject.update(dt);
         }
