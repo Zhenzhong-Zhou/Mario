@@ -70,4 +70,17 @@ public class Texture {
     public int getId() {
         return textureID;
     }
+
+    public String getFilepath() {
+        return this.filepath;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if(object == null) return false;
+        if(!(object instanceof  Texture)) return false;
+        Texture objectTexture = (Texture) object;
+        return objectTexture.getWidth() == this.width && objectTexture.getHeight() == this.height
+                && objectTexture.getId() == this.textureID && objectTexture.getFilepath().equals(this.filepath);
+    }
 }
