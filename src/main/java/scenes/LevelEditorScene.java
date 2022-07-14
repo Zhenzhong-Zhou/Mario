@@ -25,7 +25,9 @@ public class LevelEditorScene extends Scene {
         this.camera = new Camera(new Vector2f(-250, 0));
         spriteSheet = AssetPool.getSpriteSheet("assets/images/spriteSheets/decorationsAndBlocks.png");
         if(levelLoaded) {
-            this.activeGameObject = gameObjects.get(0);
+            if(gameObjects.size() > 0) {
+                this.activeGameObject = gameObjects.get(0);
+            }
         }
     }
 
